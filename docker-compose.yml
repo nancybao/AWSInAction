@@ -77,3 +77,21 @@ services:
   #     - mysql-dev
 
   #   command: mysql -uroot -ppassword -hmysql-dev blogapp
+  
+  mkdir ~/projs
+cd ~/projs
+git clone https://github.com/devteds/e8-db-on-docker.git db-on-docker
+cd db-on-docker
+mkdir data
+docker-compose up
+
+# on new terminal tab
+cd ~/projs/db-on-docker
+docker-compose ps
+
+docker-compose exec mysql-dev mysql -uroot -ppassword blogapp
+docker-compose exec mysql-legacy mysql -uroot -ppassword legacyapp
+docker-compose exec pgdb psql -U root -W blogapp
+docker-compose stop
+docker-compose rm
+docker-compose rm -f 
